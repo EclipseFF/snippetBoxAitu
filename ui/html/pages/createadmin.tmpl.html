@@ -1,0 +1,23 @@
+{{define "title"}}Create new Admin{{end}}
+{{define "main"}}
+    <form action='/admin/createadmin' method='POST' novalidate>
+        <input type='hidden' name='csrf_token' value='{{.CSRFToken}}'>
+        <div>
+            <label>Email:</label>
+            {{with .Form.FieldErrors.email}}
+                <label class='error'>{{.}}</label>
+            {{end}}
+            <input type='email' name='email' value='{{.Form.Email}}'>
+        </div>
+        <div>
+            <label>Password:</label>
+            {{with .Form.FieldErrors.password}}
+                <label class='error'>{{.}}</label>
+            {{end}}
+            <input type='password' name='password'>
+        </div>
+        <div>
+            <input type='submit' value='Create'>
+        </div>
+    </form>
+{{end}}

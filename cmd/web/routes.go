@@ -22,9 +22,17 @@ func (app *application) routes() http.Handler {
 	router.Handler(http.MethodPost, "/user/signup", dynamic.ThenFunc(app.userSignupPost))
 	router.Handler(http.MethodGet, "/user/login", dynamic.ThenFunc(app.userLogin))
 	router.Handler(http.MethodPost, "/user/login", dynamic.ThenFunc(app.userLoginPost))
-	// Because the 'protected' middleware chain appends to the 'dynamic' chain
-	// the noSurf middleware will also be used on the three routes below too.
+
+	router.Handler(http.MethodGet, "/admin/dashboard", dynamic.ThenFunc(app.dashboardTable))
+	router.Handler(http.MethodGet, "/admin/createadmin", dynamic.ThenFunc(app.adminCreate))
+	router.Handler(http.MethodPost, "/admin/createadmin", dynamic.ThenFunc(app.adminCreatePost))
+
+	router.Handler(http.MethodGet, "/admin/login", dynamic.ThenFunc(app.adminLogin))
+	router.Handler(http.MethodPost, "/admin/login", dynamic.ThenFunc(app.adminLoginPost))
+
 	protected := dynamic.Append(app.requireAuthentication)
+
+	router.Handler(http.MethodPost, "/admin/deleteuser/:id", dynamic.ThenFunc(app.DeleteUser))
 	router.Handler(http.MethodGet, "/snippet/create", protected.ThenFunc(app.snippetCreate))
 	router.Handler(http.MethodPost, "/snippet/create", protected.ThenFunc(app.snippetCreatePost))
 	router.Handler(http.MethodPost, "/user/logout", protected.ThenFunc(app.userLogoutPost))

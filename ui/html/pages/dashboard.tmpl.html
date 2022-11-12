@@ -1,0 +1,31 @@
+{{define "title"}}Dashboard{{end}}
+{{define "main"}}
+<h2>Latest Users</h2>
+{{if .Users}}
+<table>
+<tr>
+<th>ID</th>
+<th>Name</th>
+<th>email</th>
+<th>Created</th>
+</tr>
+    {{range .Users}}
+
+<tr>
+<td>#{{.ID}}</td>
+<td>{{.Name}}</td>
+<td>{{.Email}}</td>
+<td>{{humanDate .Created}}</td>
+</tr>
+{{end}}
+</table>
+<td>
+    <form action='/admin/createadmin' method = 'GET'>
+        <input type='hidden' name='csrf_token' value='{{.CSRFToken}}'>
+        <input type='submit' value = 'Create new admin'>
+    </form>
+</td>
+{{else}}
+<p>No users...</p>
+{{end}}
+{{end}}

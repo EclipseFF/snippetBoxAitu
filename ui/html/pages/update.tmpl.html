@@ -1,0 +1,23 @@
+{{define "title"}}Update User{{end}}
+{{define "main"}}
+{{if .Users}}
+{{range .Users}}
+<form action='/admin/updateuser/{{.ID}}' method='POST'>
+    <input type='hidden' name='csrf_token' value='{{.CSRFToken}}'>
+<div>
+<label>User:</label>
+{{with .ID}}
+<label class='error'>{{.}}</label>
+{{end}}
+<input type='text' name='title' value='{{.Name}}'>
+</div>
+<div>
+<div>
+<input type='submit' value='Update User'>
+</div>
+</form>
+{{else}}
+<p>No users...</p>
+{{end}}
+{{end}}
+{{end}}

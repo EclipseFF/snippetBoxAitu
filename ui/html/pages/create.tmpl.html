@@ -1,7 +1,6 @@
 {{define "title"}}Create a New Snippet{{end}}
 {{define "main"}}
     <form enctype="multipart/form-data" action='/snippet/create' method='POST'>
-        <!-- Include the CSRF token -->
         <input type='hidden' name='csrf_token' value='{{.CSRFToken}}'>
         <div>
             <label>Title:</label>

@@ -66,6 +66,7 @@ func Matches(value string, rx *regexp.Regexp) bool {
 
 func FileType(value string) bool {
 	ext := strings.ToLower(path.Ext(value))
+	ext = strings.Replace(ext, " ", "", -1)
 	if ext != ".jpg" && ext != ".png" {
 		return false
 	}
